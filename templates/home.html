@@ -5,32 +5,34 @@
 
 
 <div class="d-flex justify-content-around">
-           <div class="col-lg-2 text-center ">
-                      <form action="">
-                                 <input type="text">
-                      </form>
+           <div id="order_form">
+                      {{ formset.management_form }}
+                      {% for form in order_formset %}
+                      <div class="col-lg-2 text-center ">
+                                 <form id="order_form" action="">
+                                            {% csrf_token %}
+                                            {{form.as_p }}{{ form.DELETE }}
+                                 </form>
+                      </div>
+                      {%endfor%}
+
            </div>
            <div class="col-lg-6 col-sm-11 text-center border border-primary rounded alert alert-secondary">
                       <h1 class='text-center draggable'>Enter certificate number</h1>
                       <div class="row"
                                  style="width: 585px;
-                                 height: 600px;
+                                 height: 500px;
                                  position: relative; 
                                  background-image: 
                                             url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGrp-3OFfMOvDtae4CWZXE9pCVbrDvzffE9w&usqp=CAU);">
                                  {% for obj in object_list %}
 
-                                 <div class="tooltip">
-                                            <span class="tooltiptext">Tooltip text</span>
-                                            <img class="" style="
-                                 position: absolute;
-                                 left: {{obj.abscissa}}px;
-                                 top: {{obj.ordinate}}px;
-                                 width: {{obj.width}}px;
-                                 height: {{obj.height}}px;"
-                                                       src="https://www.flaticon.com/svg/vstatic/svg/1663/1663834.svg?token=exp=1615378290~hmac=f0abaae19a21312e0e9dfc871a3951ae"
-                                                       alt="">
-                                 </div>
+                                 <img id="target" class="" style="
+                                                       position: absolute;
+                                                       left: {{obj.abscissa}}px;
+                                                       top: {{obj.ordinate}}px;
+                                                       width: {{obj.width}}px;
+                                                       height: {{obj.height}}px;" src="/media/table.svg" alt="">
                                  {% endfor %}
                       </div>
            </div>
