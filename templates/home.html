@@ -5,21 +5,47 @@
 
 
 <div class="d-flex justify-content-around">
-           <div id="order_form">
-                      {{ formset.management_form }}
-                      {% for form in order_formset %}
-                      <div class="col-lg-2 text-center ">
-                                 <form id="order_form" action="">
+           <div class="col-lg-2 text-center ">
+                      <div id="order_form">
+                                 <form class=" text-center" id="order_form" action="">
                                             {% csrf_token %}
-                                            {{form.as_p }}{{ form.DELETE }}
+
+                                            <label class="text-nowrap" for="{{ order_form.client_email.auto_id }}">
+                                                       {{ order_form.client_email.label }}
+                                            </label>
+                                            {{ order_form.client_email }}
+
+
+                                            <label class="text-nowrap" for="{{ order_form.client_name.auto_id }}">
+                                                       {{ order_form.client_name.label }}
+                                            </label>
+                                            {{ order_form.client_name }}
+
+                                            <div class="tables_checked">
+                                                       {{order_form.tables}}
+                                            </div>
+
                                  </form>
+
+                                 <ul>
+                                            <li>You chose:
+                                                       <ul  class="selected_obj">
+                                                                  {% for obj in object_list %}
+                                                                  {%if obj.available%}
+                                                                  <li style="display: none;" id="{{obj.id }}">Table
+                                                                             №{{obj.id }}
+                                                                  </li>
+                                                                  {%endif%}
+                                                                  {% endfor %}
+                                                       </ul>
+                                            </li>
+                                 </ul>
                       </div>
-                      {%endfor%}
 
            </div>
            <div class="col-lg-6 col-sm-11 text-center border border-primary rounded alert alert-secondary">
                       <h1 class='text-center draggable'>Enter certificate number</h1>
-                      <div class="row"
+                      <div class="row hall_schema"
                                  style="width: 585px;
                                  height: 500px;
                                  position: relative; 
@@ -27,7 +53,10 @@
                                             url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGrp-3OFfMOvDtae4CWZXE9pCVbrDvzffE9w&usqp=CAU);">
                                  {% for obj in object_list %}
 
-                                 <img id="target" class="" style="
+                                 <img {%if obj.available%} id="target" {%endif%} value="{{obj.id }}" style="
+                                                       {%if not obj.available%}
+                                                       filter: drop-shadow(rgb(0,0,0) 2px 4px 6px);
+                                                       {%endif%}
                                                        position: absolute;
                                                        left: {{obj.abscissa}}px;
                                                        top: {{obj.ordinate}}px;

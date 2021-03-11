@@ -9,7 +9,7 @@ class Table(models.Model):
     width = models.IntegerField(default=111)
     height = models.IntegerField(default=111)
     num_of_seats = models.IntegerField()
-    available = models.BooleanField(default=False)
+    available = models.BooleanField(default=True)
     client_name = models.CharField(max_length=254)
     client_email = models.EmailField()
 

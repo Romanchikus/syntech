@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from .models import *
-from .forms import OrderTableFormSet
+from .forms import OrderTableForm
 
 
 class HomePageView(ListView):
@@ -11,5 +11,5 @@ class HomePageView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["order_formset"] = OrderTableFormSet()
+        context["order_form"] = OrderTableForm()
         return context
