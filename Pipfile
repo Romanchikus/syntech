@@ -12,6 +12,7 @@ psycopg2-binary = "==2.8.6"
 dj-database-url = "*"
 gunicorn = "*"
 whitenoise = "*"
+django-autofixture = "*"
 
 [requires]
 python_version = "3.7"

@@ -6,8 +6,23 @@
 
 <div class="d-flex justify-content-around">
            <div class="col-lg-2 text-center ">
+                      {% if order_form.errors %}
+                      {% for field in order_form %}
+                      {% for error in field.errors %}
+                      <div class="alert alert-danger ERRORS">
+                                 <strong>{{ error|escape }}</strong>
+                      </div>
+                      {% endfor %}
+                      {% endfor %}
+                      {% for error in order_form.non_field_errors %}
+                      <div class="alert alert-danger">
+                                 <strong>{{ error|escape }}</strong>
+                      </div>
+                      {% endfor %}
+                      {% endif %}
                       <div id="order_form">
-                                 <form class=" text-center" id="order_form" action="">
+                                 <form class=" text-center" id="order_form" action="{% url 'order_tables' %}"
+                                            method="POST">
                                             {% csrf_token %}
 
                                             <label class="text-nowrap" for="{{ order_form.client_email.auto_id }}">
@@ -24,16 +39,17 @@
                                             <div class="tables_checked">
                                                        {{order_form.tables}}
                                             </div>
+                                            <input type="submit" class="btn">
 
                                  </form>
 
                                  <ul>
                                             <li>You chose:
-                                                       <ul  class="selected_obj">
+                                                       <ul class="selected_obj">
                                                                   {% for obj in object_list %}
                                                                   {%if obj.available%}
-                                                                  <li style="display: none;" id="{{obj.id }}">Table
-                                                                             №{{obj.id }}
+                                                                  <li style="display: none;" id="{{obj.id }}">
+                                                                             {{obj}}
                                                                   </li>
                                                                   {%endif%}
                                                                   {% endfor %}
@@ -43,10 +59,12 @@
                       </div>
 
            </div>
+
+           {% block home_content %}
            <div class="col-lg-6 col-sm-11 text-center border border-primary rounded alert alert-secondary">
-                      <h1 class='text-center draggable'>Enter certificate number</h1>
+                      <h1 class='text-center draggable'>Enter table</h1>
                       <div class="row hall_schema"
-                                 style="width: 585px;
+                                 style="width: 600px;
                                  height: 500px;
                                  position: relative; 
                                  background-image: 
@@ -66,6 +84,7 @@
                       </div>
            </div>
            <div class="col-lg-2"></div>
+           {% endblock home_content %}
 </div>
 
 {% endblock content %}

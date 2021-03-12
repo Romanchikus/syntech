@@ -1,0 +1,18 @@
+{% extends 'home.html' %}
+
+{% block home_content %}
+
+{% endblock home_content %}
+
+<ul>
+           <li>You chose:
+                      <ul class="selected_obj">
+                                 {{tables}}
+                                 {% for obj in order_form.tables %}
+                                 <li id="{{obj }}">
+                                            Table №{{obj }}
+                                 </li>
+                                 {% endfor %}
+                      </ul>
+           </li>
+</ul>
