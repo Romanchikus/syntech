@@ -1,6 +1,8 @@
 
 from django import forms
 from .models import *
+from django.contrib.admin.widgets import AdminDateWidget
+from django.contrib.postgres.forms.ranges import DateRangeField, RangeWidget
 
 
 class OrderTableForm(forms.Form):
@@ -10,3 +12,8 @@ class OrderTableForm(forms.Form):
     tables = forms.ModelMultipleChoiceField(
         queryset=Table.objects.filter(available=True),
         widget=forms.CheckboxSelectMultiple)
+
+
+class DataCafeForm(forms.Form):
+
+    from_date = forms.DateField(widget=AdminDateWidget())

@@ -4,4 +4,3 @@ from .models import *
 
 
 admin.site.register(Table)
-admin.site.register(Hall)

@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-
+{% block js %}
+<script src="{% url 'js-catlog' %}"></script>
+<script src="{% static '/admin/js/core.js' %}"></script>
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+{% endblock js %}
 
 
 <div class="d-flex justify-content-around">
@@ -41,6 +46,7 @@
                                             </div>
                                             <input type="submit" class="btn">
 
+
                                  </form>
 
                                  <ul>
@@ -62,28 +68,62 @@
 
            {% block home_content %}
            <div class="col-lg-6 col-sm-11 text-center border border-primary rounded alert alert-secondary">
-                      <h1 class='text-center draggable'>Enter table</h1>
-                      <div class="row hall_schema"
-                                 style="width: 600px;
-                                 height: 500px;
-                                 position: relative; 
-                                 background-image: 
-                                            url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGrp-3OFfMOvDtae4CWZXE9pCVbrDvzffE9w&usqp=CAU);">
-                                 {% for obj in object_list %}
 
-                                 <img {%if obj.available%} id="target" {%endif%} value="{{obj.id }}" style="
-                                                       {%if not obj.available%}
-                                                       filter: drop-shadow(rgb(0,0,0) 2px 4px 6px);
-                                                       {%endif%}
-                                                       position: absolute;
-                                                       left: {{obj.abscissa}}px;
-                                                       top: {{obj.ordinate}}px;
-                                                       width: {{obj.width}}px;
-                                                       height: {{obj.height}}px;" src="/media/table.svg" alt="">
-                                 {% endfor %}
+                      <form class=" text-center" action="{% url 'home' %}" method="GET">
+                                 {% csrf_token %}
+                                 {{ date_form.media }}
+                                 {{date_form.from_date}}
+                                 <input type="submit" class="btn">
+                      </form>
+                      <h1 class='text-center draggable'>Enter table</h1>
+                      <div class="row">
+                                 <form class="col-lg-1 text-center float-left p-0 m-0" action="{% url 'home' %}"
+                                            method="GET">
+                                            {% csrf_token %}
+                                            <div class="d-none">
+                                                       <input type="text" name="from_date" value="{{date_prev}}">
+                                            </div>
+                                            <button class="btn btn-warning h-100 p-0" type="submit">
+                                                       <span style="transform: rotate(90deg);
+                                                       display: inline-block;">
+                                                                  Prev day
+                                                       </span></button>
+                                 </form>
+                                 <div class="col-lg-10 hall_schema"
+                                            style="width: 600px;
+                                            height: 500px;
+                                            position: relative; 
+                                            background-image: 
+                                                       url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGrp-3OFfMOvDtae4CWZXE9pCVbrDvzffE9w&usqp=CAU);">
+                                            {% for obj in object_list %}
+
+                                            <img {%if obj.available%} id="target" {%endif%} value="{{obj.id }}" style="
+                                                                  {%if not obj.available%}
+                                                                  filter: drop-shadow(rgb(0,0,0) 2px 4px 6px);
+                                                                  {%endif%}
+                                                                  position: absolute;
+                                                                  left: {{obj.abscissa}}px;
+                                                                  top: {{obj.ordinate}}px;
+                                                                  width: {{obj.width}}px;
+                                                                  height: {{obj.height}}px;" src="/media/table.svg"
+                                                       alt="">
+                                            {% endfor %}
+                                 </div>
+                                 <form class="col-lg-1 text-center float-right  p-0 m-0" action="{% url 'home' %}"
+                                            method="GET">
+                                            {% csrf_token %}
+                                            <div class="d-none">
+                                                       <input type="text" name="from_date" value="{{date_next}}">
+                                            </div><button class="btn btn-warning h-100 p-0 " type="submit">
+                                                       <span style="transform: rotate(90deg);
+                                                       display: inline-block;">
+                                                                  Next day
+                                                       </span></button>
+                                 </form>
                       </div>
            </div>
-           <div class="col-lg-2"></div>
+           <div class="col-lg-2">
+           </div>
            {% endblock home_content %}
 </div>
 

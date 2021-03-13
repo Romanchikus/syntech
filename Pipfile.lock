@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8a60fc6da52a569a487d0c984973a35e6a3c3f0298ef6c4c30f96864e19cf7b4"
+            "sha256": "a250be6a6edfccdcc610ef8994a6f98f6085a76cd6ded4b19d16b01599bc65c4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -39,6 +39,13 @@
             ],
             "index": "pypi",
             "version": "==3.1.7"
+        },
+        "django-autofixture": {
+            "hashes": [
+                "sha256:32588b80814cdff3a8aab7cf3859fc9330d38abe37a9cc16e53d24dd1b1fcd86"
+            ],
+            "index": "pypi",
+            "version": "==0.12.1"
         },
         "gunicorn": {
             "hashes": [

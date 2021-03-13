@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
-    if ($( ".ERRORS" ).length ==0){
-        $('#order_form').hide();
-    }
+    // if ($( ".ERRORS" ).length ==0){
+    //     $('#order_form').hide();
+    // }
 
     // $('.tables_checked').hide();
 
