@@ -22,12 +22,13 @@ class Table(models.Model):
     height = IntegerRangeField(default=22)
     num_of_seats = models.IntegerField(default=2)
     available = models.BooleanField(default=True)
-    client_name = models.CharField(max_length=254,default='Roman')
-    client_email = models.EmailField(default='13ternopil@gmail.com')
-    date = models.DateField()
+    client_name = models.CharField(max_length=254,blank=True)
+    client_email = models.EmailField(blank=True)
+    date = models.DateField(blank=True)
+    number = IntegerRangeField()
 
     def __str__(self):
-        return f"Table №{self.id}"
+        return f"Table №{self.number}"
 
 
     

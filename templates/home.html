@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-{% block js %}
+
 <script src="{% url 'js-catlog' %}"></script>
 <script src="{% static '/admin/js/core.js' %}"></script>
 <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
 <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
-{% endblock js %}
 
 
+{% block home_content %}
 <div class="d-flex justify-content-around">
            <div class="col-lg-2 text-center ">
                       {% if order_form.errors %}
@@ -66,7 +66,7 @@
 
            </div>
 
-           {% block home_content %}
+
            <div class="col-lg-6 col-sm-11 text-center border border-primary rounded alert alert-secondary">
 
                       <form class=" text-center" action="{% url 'home' %}" method="GET">
@@ -123,8 +123,19 @@
                       </div>
            </div>
            <div class="col-lg-2">
+                      {% if messages %}
+                      <ul class="messages">
+                                 {% for message in messages %}
+                                 <li class="text-info"
+                                 {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                                            {{ message }}
+                                            </li>
+                                            {% endfor %}
+                      </ul>
+                      {% endif %}
            </div>
-           {% endblock home_content %}
-</div>
 
+</div>
+{% endblock home_content %}
 {% endblock content %}

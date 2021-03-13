@@ -14,6 +14,12 @@ class OrderTableForm(forms.Form):
         widget=forms.CheckboxSelectMultiple)
 
 
-class DataCafeForm(forms.Form):
+class DateCafeForm(forms.Form):
 
     from_date = forms.DateField(widget=AdminDateWidget())
+
+
+class DataGenerateForm(forms.Form):
+
+    day_start = forms.DateField(widget=AdminDateWidget())
+    day_end = forms.DateField(widget=AdminDateWidget())
