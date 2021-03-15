@@ -16,13 +16,17 @@ class HomePageView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["order_form"] = OrderTableForm()
         context["date_form"] = DateCafeForm()
+
         if self.request.GET.get('from_date', False):
+            context["order_form"] = OrderTableForm(
+                from_date=self.request.GET['from_date'])
             day = date.fromisoformat(self.request.GET['from_date'])
         else:
             day = date.today()
+            context["order_form"] = OrderTableForm(from_date=day.isoformat())
 
+        context["from_date"] = day.isoformat()
         context["date_next"] = (day + timedelta(days=1)).isoformat()
         context["date_prev"] = (day - timedelta(days=1)).isoformat()
         return context
@@ -31,18 +35,23 @@ class HomePageView(ListView):
 
         if self.request.GET.get('from_date', False):
             return Table.objects.filter(date=self.request.GET['from_date'])
-        return super().get_queryset()
+        else:
+            return Table.objects.filter(date=date.today())
 
 
 class OrderTable(HomePageView, FormView):
 
     form_class = OrderTableForm
-    template_name = 'home.html'
     success_url = reverse_lazy('home')
 
     def post(self, request, *args, **kwargs):
 
-        form = OrderTableForm(request.POST)
+        if self.request.POST.get('from_date', False):
+            form = OrderTableForm(self.request.POST['from_date'], request.POST)
+            day = date.fromisoformat(self.request.POST['from_date'])
+        else:
+            day = date.today()
+            form = OrderTableForm(day.isoformat(), request.POST)
 
         if not form.is_valid():
 
@@ -56,7 +65,6 @@ class OrderTable(HomePageView, FormView):
         return self.form_valid(form)
 
     def form_valid(self, form):
-        print(form.cleaned_data['tables'])
 
         for table in form.cleaned_data['tables']:
             table.client_email = form.cleaned_data['client_email']
@@ -126,7 +134,7 @@ class GenerateTableData(FormView):
                 table = Table(abscissa=coordinates[i][0],
                               ordinate=coordinates[i][1],
                               date=day_in_progr,
-                              number=i
+                              number=i+1
                               )
                 tables.append(table)
 
