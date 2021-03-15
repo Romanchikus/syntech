@@ -45,7 +45,7 @@
                                                        {{order_form.tables}}
                                             </div>
                                             <input type="submit" class="btn">
-
+                                            <input class="d-none" type="text" name="from_date" value="{{from_date}}">
 
                                  </form>
 
@@ -75,7 +75,7 @@
                                  {{date_form.from_date}}
                                  <input type="submit" class="btn">
                       </form>
-                      <h1 class='text-center draggable'>Enter table</h1>
+                      <h1 class='text-center draggable'>Select table on {{from_date}}</h1>
                       <div class="row">
                                  <form class="col-lg-1 text-center float-left p-0 m-0" action="{% url 'home' %}"
                                             method="GET">

@@ -1,10 +1,10 @@
 $(document).ready(function () {
 
-    // if ($( ".ERRORS" ).length ==0){
-    //     $('#order_form').hide();
-    // }
+    if ($( ".ERRORS" ).length ==0){
+        $('#order_form').hide();
+    }
 
-    // $('.tables_checked').hide();
+    $('.tables_checked').hide();
 
     var a = $(".hall_schema").children();
     hall_h = $(".hall_schema").height()

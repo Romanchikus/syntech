@@ -7,6 +7,8 @@ from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from datetime import date, timedelta
 from django.contrib import messages
+from cafe.settings import EMAIL_HOST_USER, CAFE_NAME
+from django.core.mail import send_mail
 
 
 class HomePageView(ListView):
@@ -71,6 +73,21 @@ class OrderTable(HomePageView, FormView):
             table.client_name = form.cleaned_data['client_name']
             table.available = False
             table.save()
+
+        tables = [i.number for i in form.cleaned_data['tables']]
+        if len(tables) > 1:
+            tables = ','.join(map(str, tables))
+            message = ( f"Dear {form.cleaned_data['client_name']} you ordered {tables}"
+              f" tables  in '{CAFE_NAME}' cafe for date: {form.cleaned_data['tables'][0].date}")
+        else:
+            message = ( f"Dear {form.cleaned_data['client_name']} you ordered {tables[0]}"
+              f" table  in '{CAFE_NAME}' cafe for date: {form.cleaned_data['tables'][0].date}")
+
+        subject = f"Order table in '{CAFE_NAME}' cafe"
+
+        recepient = str(form.cleaned_data['client_email'])
+        send_mail(subject,
+                  message, EMAIL_HOST_USER, [recepient], fail_silently=False)
 
         return super(OrderTable, self).form_valid(form)
 
