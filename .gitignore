@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 .vscode/settings.json
 # static/
-media/
+# media/
 db.sqlite3
 **/**/migrations
 __pycache__

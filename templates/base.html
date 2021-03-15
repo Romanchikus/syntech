@@ -3,31 +3,32 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title>{% block title %}Cafe{% endblock title %}</title>
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link href='{% static "css/bootstrap.min.css" %}' rel="stylesheet">
-    <link href='{% static "/open-iconic/font/css/open-iconic.css" %}' rel="stylesheet">
-    <script src='{% static "jquery/jquery.js" %}'></script>
-    <script src='{% static "js/bootstrap.js" %}'></script>
-    <script src="{% static 'js/base.js' %}"></script>
+  <meta charset="utf-8">
+  <title>{% block title %}Cafe{% endblock title %}</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link href='{% static "css/bootstrap.min.css" %}' rel="stylesheet">
+  <link href='{% static "/open-iconic/font/css/open-iconic.css" %}' rel="stylesheet">
+  <script src='{% static "jquery/jquery.js" %}'></script>
+  <script src='{% static "js/bootstrap.js" %}'></script>
+  <script src="{% static 'js/base.js' %}"></script>
 
 </head>
 
 <body class="text-family">
-    <div class="container-fluid bg-light col-lg-6 col-sm-11">
-        <div class="">
-          <div class="">
-            <div class="container justify-content-center text-center">
-              <div class="mx-1 d-inline-block"><a class="navbar-brand custom_title" href="{% url 'home' %}">Cafe</a></div>
-              <div class="mx-1 d-inline-block"><a class="navbar-brand" href="{% url 'generate_tables' %}">Generate tables</a></div>
-            </div>
-          </div>
+  <div class="container-fluid bg-light col-lg-6 col-sm-11">
+    <div class="">
+      <div class="">
+        <div class="container justify-content-center text-center">
+          <div class="mx-1 d-inline-block"><a class="navbar-brand custom_title" href="{% url 'home' %}">Cafe</a></div>
+          <div class="mx-1 d-inline-block"><a class="navbar-brand" href="{% url 'generate_tables' %}">Generate
+              tables</a></div>
         </div>
       </div>
-        {% block content %}
-        {% endblock content %}
-    
+    </div>
+  </div>
+  {% block content %}
+  {% endblock content %}
+
 </body>
 
 </html>
